@@ -1,4 +1,4 @@
-
+var firCli=require('./routes/FirebaseClient');
 var express=require('express');
 var clarCli=require('./routes/ClarifaiClient');
 //var users=require('./routes/users');
@@ -9,11 +9,13 @@ server.get('/images',function (req,response){
 	response.send('HELLO!!');
 });
 
+server.get('/key', function(req,res){
+	firCli.getSomething();
+});
+
 server.get('/', function(req,response){
 	response.send('What the deal');
 })
-server.listen(4000,function(err){
-	console.log('listening!')
-});
+server.listen(4000);
 
 

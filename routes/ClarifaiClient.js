@@ -2,20 +2,23 @@ var Clarifai=require('clarifai');
 var app=new Clarifai.App('bwrRS6mMNw1o3ZxBK2Ashk4jmySk4TrNzOrzwY8y',
 	'D9EAKPCY8FxWkwftESoyXzZambequZwDa_XZN0oq')
 var exports = module.exports;
-exports.predictImage=function(url){
-	app.models.predict(Clarifai.GENERAL_MODEL, url).then(
-  function(response) {
-    // do something with response
-    console.log('response');
-    var items=[];
-	for(var i in response.data.outputs[0].data.concepts) {
-		items.push(response.data.outputs[0].data.concepts[i].name);
-		console.log(items[i]);
-	}
-  },
-  function(err) {
-    // there was an error
-  }
-);
+
+exports.predictImage=function(url,ref,snap){
+	items=[];
+	app.models.predict(Clarifai.FOOD_MODEL, url).then(function(response){
+		
+		 for(var i=0;i<5;i++) {
+		 		if(response.data.outputs[0].data.concepts[i].value>.9){
+		    		items.push(response.data.outputs[0].data.concepts[i].name);
+				
+				ref.child(snap.name).set({
+					concept:items[i]
+				});	
+		   		 }
+
+		    }
+		 
+
+	})
 	
 };

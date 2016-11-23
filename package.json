@@ -11,6 +11,8 @@
   "dependencies": {
     "clarifai": "^2.0.16",
     "express": "^4.14.0",
+    "firebase": "^3.6.1",
+    "firebase-admin": "^4.0.3",
     "mongoose": "^4.6.8"
   }
 }
