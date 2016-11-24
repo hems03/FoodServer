@@ -12,7 +12,7 @@ exports.predictImage=function(url,ref,snap){
 		    		items.push(response.data.outputs[0].data.concepts[i].name);
 				
 				ref.child(snap.name).set({
-					concept:items[i]
+					concept:items[i] //mapping to le database
 				});	
 		   		 }
 
