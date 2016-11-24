@@ -6,19 +6,18 @@ var exports = module.exports;
 exports.predictImage=function(url,ref,snap){
 	items=[];
 	app.models.predict(Clarifai.FOOD_MODEL, url).then(function(response){
-		
+		  debugger;
 		 for(var i=0;i<5;i++) {
 		 		if(response.data.outputs[0].data.concepts[i].value>.9){
 		    		items.push(response.data.outputs[0].data.concepts[i].name);
-				
-				ref.child(snap.name).set({
-					concept:items[i] //mapping to le database
-				});	
-		   		 }
-
-		    }
-		 
-
-	})
-	
+				    console.log(items[i]);
+				}
+      }
+      ref.child(snap).update({
+        concept:items[0]
+      });
+    },function(err){
+      console.log('Clarifai error');
+    }
+	)
 };
