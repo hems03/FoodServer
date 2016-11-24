@@ -23,7 +23,7 @@ ref.on('value',function(snap){
 	snap.forEach(function(childSnap){
 		debugger;
 		var childRef=db.ref('https:/ruhungry-3cda7,firebaseio,com/'+childSnap.key+'/Images/');
-		childRef.on('child_added', function(childSnap){
+		childRef.limitToLast(1).on('child_added', function(childSnap){
 			console.log('child child_added');
 			clarCli.predictImage(childSnap.child('URL').val(),childRef,childSnap.key);
 
