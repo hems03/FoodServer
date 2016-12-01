@@ -1,5 +1,7 @@
 var clarCli=require('./ClarifaiClient');
+var nutrCli = require('./NutritionClient');
 var firebase = require('firebase/app');
+var request = require('request');
 require('firebase/database');
 
 var admin=require('firebase-admin');
@@ -32,6 +34,9 @@ ref.once('value',function(snap){
 		})
 		childRef.once("value",function(snap){
 			newChild=true;
+		})
+		childRef.on("child_changed", function(ref) {
+			nutrCli.findNutritionData(ref.value);
 		})
 	})
 })
