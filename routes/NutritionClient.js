@@ -13,8 +13,10 @@ exports.findNutritionData=function(foods) {
 	};
  
 	function callback(error, response, body) {
+		debugger;
 	    if (!error && response.statusCode == 200) {
 		var info = JSON.parse(body);
+		console.log(info.list.item[0].nbdno);
 		return findAndReturnFirst(info.list.item[0].nbdno);
 	    }
 	}
@@ -31,6 +33,8 @@ function findAndReturnFirst(id) {
 	};
  
 	function callback(error, response, body) {
+		debugger;
+
 	    if (!error && response.statusCode == 200) {
 		var info = JSON.parse(body);
 		var foodname = info.report.food.name;
@@ -39,6 +43,8 @@ function findAndReturnFirst(id) {
 			foodname: foodname,
 			calories: calories
 		};
+		
+		console.log(food);
 		return food;
 	    }
 	}

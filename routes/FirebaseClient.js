@@ -36,8 +36,12 @@ ref.once('value',function(snap){
 			newChild=true;
 		})
 		childRef.on("child_changed", function(ref) {
-			var food = nutrCli.findNutritionData(ref.value);
+			if(ref.val().concept!=null&&ref.val().concept.includes("[")){
+				console.log(ref.val());
+				debugger;
+			var food = nutrCli.findNutritionData(ref.val().concept);
 			console.log(food);
+			}
 		})
 	})
 })
