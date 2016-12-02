@@ -35,12 +35,14 @@ ref.once('value',function(snap){
 		childRef.once("value",function(snap){
 			newChild=true;
 		})
-		childRef.on("child_changed", function(ref) {
-			if(ref.val().concept!=null&&ref.val().concept.includes("[")){
-				console.log(ref.val());
+		childRef.on("child_changed", function(snap) {
+			if(snap.val().concept!=null&&snap.val().concept.includes("[")){
+				console.log(snap.val());
 				//debugger;
-			var food = nutrCli.findNutritionData(ref.val().concept);
-			console.log(food);
+			nutrCli.findNutritionData(snap.val().concept,childRef,snap);
+			debugger;
+			
+			
 			}
 		})
 	})

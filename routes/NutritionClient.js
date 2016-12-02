@@ -1,7 +1,7 @@
 var request = require('request');
 var exports = module.exports;
 
-exports.findNutritionData=function(foods) {
+exports.findNutritionData=function(foods, ref, snap) {
 	var list = foods.replace("]","").replace("[","").split(", ");
 	var food = list[0];
 	console.log(list);
@@ -21,14 +21,15 @@ exports.findNutritionData=function(foods) {
 		console.log(body);
 		console.log(JSON.stringify(info));
 		debugger;
-		return findAndReturnFirst(info.list.item[0].ndbno);
+		return findAndReturnFirst(food,info.list.item[0].ndbno,ref,snap);
 	    }
 	}
  
 	request(options, callback);
 }
 
-function findAndReturnFirst(id) {
+function findAndReturnFirst(id, ref, snap) {
+	
 		var options = {
 	    headers: 
 	{'X-Access-Token': '808275ae4f98fef3'},
@@ -36,7 +37,7 @@ function findAndReturnFirst(id) {
 	    method: 'GET'
 	};
  
-	function callback(error, response, body) {
+	function callback(food,error, response, body) {
 		debugger;
 
 	    if (!error && response.statusCode == 200) {
@@ -44,12 +45,12 @@ function findAndReturnFirst(id) {
 		var foodname = info.report.food.name;
 		var calories = info.report.food.nutrients[1].value;
 		var food = {
-			foodname: foodname,
 			calories: calories
 		};
+		ref.child(snap.key).child(food).update(food);
 		
 		console.log(food);
-		return food;
+		
 	    }
 	}
  
