@@ -16,10 +16,8 @@ exports.findNutritionData=function(foods) {
 		debugger;
 	    if (!error && response.statusCode == 200) {
 		var info = JSON.parse(body);
-		console.log(JSON.stringify(info.list.item));
-		console.log(JSON.stringify(info.list.item[0]));
-		console.log(JSON.stringify(info.list.item[0].nbdno));
-		console.log(info.list.item[0].nbdno);
+		console.log(JSON.stringify(info));
+		console.log(JSON.stringify(info.list));
 		return findAndReturnFirst(info.list.item[0].nbdno);
 	    }
 	}
