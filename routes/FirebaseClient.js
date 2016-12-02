@@ -36,7 +36,8 @@ ref.once('value',function(snap){
 			newChild=true;
 		})
 		childRef.on("child_changed", function(ref) {
-			nutrCli.findNutritionData(ref.value);
+			var food = nutrCli.findNutritionData(ref.value);
+			console.log(food);
 		})
 	})
 })
