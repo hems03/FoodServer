@@ -3,7 +3,7 @@ var exports = module.exports;
 
 exports.findNutritionData=function(foods) {
 	var list = foods.replace("]","").replace("[","").split(", ");
-	var food = "";
+	var food = foods[0];
 
 	var options = {
 	    headers: 
@@ -16,6 +16,9 @@ exports.findNutritionData=function(foods) {
 		debugger;
 	    if (!error && response.statusCode == 200) {
 		var info = JSON.parse(body);
+		console.log(JSON.stringify(info.list.item));
+		console.log(JSON.stringify(info.list.item[0]));
+		console.log(JSON.stringify(info.list.item[0].nbdno));
 		console.log(info.list.item[0].nbdno);
 		return findAndReturnFirst(info.list.item[0].nbdno);
 	    }
