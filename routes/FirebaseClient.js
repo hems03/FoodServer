@@ -23,7 +23,7 @@ var db=admin.database();
 var ref=db.ref('https:/ruhungry-3cda7,firebaseio,com/');
 ref.once('value',function(snap){
 	snap.forEach(function(childSnap){
-		debugger;
+		//debugger;
 		var childRef=db.ref('https:/ruhungry-3cda7,firebaseio,com/'+childSnap.key+'/Images/');
 		var newChild=false;
 		childRef.on('child_added', function(childSnap){
@@ -38,7 +38,7 @@ ref.once('value',function(snap){
 		childRef.on("child_changed", function(ref) {
 			if(ref.val().concept!=null&&ref.val().concept.includes("[")){
 				console.log(ref.val());
-				debugger;
+				//debugger;
 			var food = nutrCli.findNutritionData(ref.val().concept);
 			console.log(food);
 			}
