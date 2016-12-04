@@ -1,17 +1,13 @@
 var firCli=require('./routes/FirebaseClient');
 var express=require('express');
 var clarCli=require('./routes/ClarifaiClient');
+var handlebars=require('express-handlebars').create({defaultLayout:'main'});
+
 //var users=require('./routes/users');
 
 var server=express();
-server.get('/images',function (req,response){
-	clarCli.predictImage("http://www.cicis.com/media/1138/pizza_trad_pepperoni.png");
-	response.send('HELLO!!');
-});
-
-server.get('/key', function(req,res){
-	firCli.getSomething();
-});
+server.engine('handlebars', handlebars.engine);
+server.set('view engine','handlebars');
 
 server.get('/', function(req,response){
 	response.send('What the deal');
