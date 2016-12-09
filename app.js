@@ -10,7 +10,7 @@ server.engine('handlebars', handlebars.engine);
 server.set('view engine','handlebars');
 
 server.get('/', function(req,response){
-	response.send('What the deal');
+	
 })
 server.listen(4000);
 

@@ -38,10 +38,9 @@ ref.once('value',function(snap){
 		childRef.on("child_changed", function(snap) {
 			if(snap.val().concept!=null&&snap.val().concept.includes("[")){
 				
-				//debugger;
+				
 				console.log(snap.key);
 			nutrCli.findNutritionData(snap.val().concept,childRef,snap.key);
-			debugger;
 			
 			
 			}

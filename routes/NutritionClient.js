@@ -1,5 +1,66 @@
 var request = require('request');
+var PyShell=require('python-shell');
+var pyShell= new PyShell('scrape.py');
+
 var exports = module.exports;
+var menu;
+
+var interval = setInterval(function() {
+  PyShell.run('scrape.py', function (err) {
+  if (err) throw err;
+  console.log('finished');
+});
+}, 1000*60*60*24);
+
+
+
+pyShell.on('message', function(message){
+	
+	menu=JSON.parse(message);
+	var concs=["pizza", "salad"];
+	console.log(exports.findRutgersFood(concs));
+	
+	
+	
+	
+})
+
+exports.findRutgersFood=function(concepts){
+	
+	var rutgersFoods=[];
+	for (var i=0;i<menu.length;i++){
+		
+		var menuObj=menu[i].meals;
+		for (var j=0;j<menuObj.length;j++){
+			var genreObj=menuObj[j].genres;
+			
+			
+			for(var k=0;k<genreObj.length;k++){
+				var rutFood=genreObj[k];
+				
+				for(var w=0;w<rutFood.items.length;w++){
+					var foodObj=rutFood.items[w];
+					
+					if(foodObj.hasOwnProperty('items')){
+						
+						//console.log(foodObj);
+						foodObj=foodObj.items;
+					}
+					for(var i in concepts){
+						if(foodObj.name.indexOf(concepts[i]>0)){
+							rutgersFoods.push(JSON.stringify(foodObj.name));
+						}
+					}
+					
+				}
+					
+				
+			}
+			
+		}	
+	}
+	return (rutgersFoods);
+}
 
 exports.findNutritionData=function(foods, ref, key) {
 	var list = foods.replace("]","").replace("[","").split(", ");
@@ -74,4 +135,8 @@ function findAndReturnFirst(food, id, ref, key) {
  
 	request(options, callback);
 }
+
+
+
+
 
